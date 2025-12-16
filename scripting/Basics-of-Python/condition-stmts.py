@@ -5,15 +5,15 @@ if age >= 18:
 else:
     print("You are not eligible to vote yet.")
 
-marks = int(input("HI! Please enter your marks: \n"))
+score = int(input("HI! Please enter your score: \n"))
 
-if marks >= 90:
+if score >= 90:
     grade = 'A'
-elif marks >= 80:
+elif score >= 80:
     grade = 'B'
-elif marks >= 70:
+elif score >= 70:
     grade = 'C'
-elif marks >= 60:
+elif score >= 60:
     grade = 'D'
 else:
     grade = 'F'

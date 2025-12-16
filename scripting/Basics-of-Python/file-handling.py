@@ -1,5 +1,3 @@
-# f = open("data.txt", "r") read a file
-
 f = open("data.txt", "w")
 
 f.write("Hello, World!")
