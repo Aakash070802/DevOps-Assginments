@@ -1,11 +1,17 @@
+import os
 from flask import Flask, request, render_template, jsonify
 from datetime import datetime
 import pymongo
+from dotenv import load_dotenv
 
+load_dotenv()
 
-client = pymongo.MongoClient("mongodb+srv://akkiakash294_db_user:Akkimongo741974@learncluster.nixinic.mongodb.net/?appName=learnCluster")
+MONGO_URI = os.getenv("MONGO_URI")
+client = pymongo.MongoClient(MONGO_URI)
 
 db = client.test
+
+collection = db['flask-tutorial']
 
 
 app = Flask(__name__)
@@ -29,16 +35,15 @@ def submit():
             'status': 'error',
             'message': 'Password do not match'
         })
-    user_data = {
+    collection.insert_one({
         'username': username,
         'email': email,
         'password': password
-    }
-    print(user_data)
+    })
+
     return jsonify({
         'status': 'success',
         'message': 'User registered successfully',
-        'data': user_data
     })
 
 if __name__ == '__main__':
