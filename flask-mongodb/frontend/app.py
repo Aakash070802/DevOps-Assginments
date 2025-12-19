@@ -8,11 +8,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    day_of_week = datetime.today().strftime('%A')
-
-    current_time = datetime.now().strftime('%H:%M')
-    print(day_of_week)
-    return render_template('index.html' , day=day_of_week, time=current_time)
+    return render_template(
+        'index.html',
+        day=datetime.today().strftime('%A'),
+        time=datetime.now().strftime('%H:%M'),
+        error=None
+    )
 @app.route('/submit', methods=['POST'])
 def submit():
     form_data = {
@@ -28,8 +29,12 @@ def submit():
     if result['status'] == 'success':
         return render_template('success.html', message=result['message'])
     else:
-        return result['message'], 400
+        return render_template(
+            "index.html",
+            day=datetime.today().strftime('%A'),
+            time=datetime.now().strftime('%H:%M'),
+            error=result["message"]
+        )
     
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7000, debug=True)
