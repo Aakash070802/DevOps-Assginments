@@ -1,6 +1,5 @@
 import os
-from flask import Flask, request, render_template, jsonify
-from datetime import datetime
+from flask import Flask, request, jsonify
 import pymongo
 from dotenv import load_dotenv
 
@@ -16,13 +15,6 @@ collection = db['flask-tutorial']
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    day_of_week = datetime.today().strftime('%A')
-
-    current_time = datetime.now().strftime('%H:%M')
-    print(day_of_week)
-    return render_template('index.html' , day=day_of_week, time=current_time)
 @app.route('/submit', methods=['POST'])
 def submit():
     username = request.form['username']
@@ -45,6 +37,18 @@ def submit():
         'status': 'success',
         'message': 'User registered successfully',
     })
+
+@app.route('/view')
+def view():
+    user = collection.find()
+    users_list = []
+    for usr in user:
+        users_list.append({
+            'username': usr['username'],
+            'email': usr['email'],
+            'password': usr['password']
+        })
+    return jsonify(users_list)
 
 if __name__ == '__main__':
     app.run(debug=True)
