@@ -1,5 +1,7 @@
 FROM python:3.11-alpine
 
-ADD test.py /app/test.py
+WORKDIR /app
 
-CMD ["python", "/app/test.py"]
+ADD . .
+
+CMD ["python", "test.py"]

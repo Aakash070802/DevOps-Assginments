@@ -1,1 +1,7 @@
-print("HELLO DEVOPS ENGINEER FROM DOCKER IN PYTHON 3.11 ALPINE V3")
+with open('names.txt') as f:
+    names = f.read()
+
+    names = names.split()
+
+    for i, name in enumerate(names):
+        print(f"{i+1}.{name}")
