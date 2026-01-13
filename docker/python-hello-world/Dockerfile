@@ -4,4 +4,6 @@ WORKDIR /app
 
 ADD . .
 
-CMD ["python", "test.py"]
+ENTRYPOINT [ "python" ]
+
+CMD ["test.py"]
